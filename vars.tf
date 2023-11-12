@@ -11,7 +11,7 @@ variable "AMIS" {
 }
 
 variable "SECURITY_GRP" {
-  default = "sg-038248fd520230"
+  default = "sg-038248fd520eba230"
 }
 
 variable "USER" {

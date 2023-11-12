@@ -7,13 +7,19 @@ resource "aws_instance" "my-instance" {
     Name = "instance-5"
   }
   vpc_security_group_ids  = [var.SECURITY_GRP]
-  user_data               = file("web.sh")  # Include the contents of your web.sh script
 
 
+
+
+  provisioner "file"{
+    source = "web.sh"
+    destination = "web.sh"
+  }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo docker-compose up --build"
+       "sudo chmod 777 web.sh",
+       "./web.sh"
     ]
   }
 
