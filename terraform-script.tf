@@ -26,7 +26,8 @@ resource "aws_instance" "my-instance" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x web.sh",
-      "./web.sh"
+      "./web.sh",
+      "sudo docker compose up --build"
     ]
   }
 
