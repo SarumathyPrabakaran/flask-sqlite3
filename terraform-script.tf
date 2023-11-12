@@ -1,33 +1,19 @@
 
-resource "aws_key_pair" "my-key" {
-  key_name   = "saru-mumbai-keypair"
-  public_key = file("saru-mumbai-keypair.pub")
-}
-
 resource "aws_instance" "my-instance" {
-  instance_type = "t2.micro"
-  ami           = var.AMIS[var.REGION]
-  key_name      = aws_key_pair.my-key.key_name
+  instance_type           = "t2.micro"
+  ami                     = var.AMIS[var.REGION]
+  key_name                = "saru-mumbai-keypair"
   tags = {
-    Name = "instance-2"
+    Name = "instance-5"
   }
-  vpc_security_group_ids = [var.SECURITY_GRP]
+  vpc_security_group_ids  = [var.SECURITY_GRP]
+  user_data               = file("web.sh")  # Include the contents of your web.sh script
 
 
-  provisioner "file" {
-    source      = "./app"
-    destination = "./app"
-  }
-    provisioner "file" {
-    source      = "web.sh"
-    destination = "web.sh"
-  }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x web.sh",
-      "./web.sh",
-      "sudo docker compose up --build"
+      "sudo docker-compose up --build"
     ]
   }
 

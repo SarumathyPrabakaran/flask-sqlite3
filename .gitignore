@@ -1,3 +1,5 @@
 saru-mumbai-keypair
 saru-mumbai-keypair.pub
 /app/Users.db
+.terraform*
+terraform.tfstate*
